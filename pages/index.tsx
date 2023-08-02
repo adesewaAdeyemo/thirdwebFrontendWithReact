@@ -1,107 +1,60 @@
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 import styles from "../styles/Home.module.css";
-import Image from "next/image";
 import { NextPage } from "next";
+import AddContact from "../component/addInfo";
 
 const Home: NextPage = () => {
+  const address = useAddress();
+
+let num = 1;
+
+function SetNumTo(i){
+  num = i;
+}
   return (
     <main className={styles.main}>
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <h1 className={styles.title}>
-            Welcome to{" "}
-            <span className={styles.gradientText0}>
-              <a
-                href="https://thirdweb.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                thirdweb.
-              </a>
-            </span>
-          </h1>
+        <div className="container" id="dyna">
+          <div className="card px-4 py-2">
+            <div className="card-body">
+              <div className="d-flex justify-space-between mb-2">
+                <div className="col-9">
+                  <h3 className="mx-0">User Information</h3>
+                </div>
+                <div className={`${styles.connect}`}>
+                  <ConnectWallet />
+                </div>
+              </div>
 
-          <p className={styles.description}>
-            Get started by configuring your desired network in{" "}
-            <code className={styles.code}>src/index.js</code>, then modify the{" "}
-            <code className={styles.code}>src/App.js</code> file!
-          </p>
+              <p className="card-text mb-5">
+                Hello, You have been normalised to identify someone. Tap "Next"
+                to continue with the identification process
+              </p>
+              <div>
+                {/* <button
+                  type="submit"
+                  form="formA"
+                  className="btn btn-lg btn-dark btn-block col-12 mt-5"
+                  onClick={()=> {
+                    SetNumTo('2')
+                  }}
+                >
+                  Next
+                </button> */}
+                <AddContact />
+              </div>
+              <hr></hr>
 
-          <div className={styles.connect}>
-            <ConnectWallet
-              dropdownPosition={{
-                side: "bottom",
-                align: "center",
-              }}
-            />
+              {address && (
+                <div className="row">
+                  <div className="col-8">
+                    <h4 className="mx-0">Contacts</h4>
+                  </div>
+                  <div className={`${styles.connect} col-4`}></div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://portal.thirdweb.com/"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/images/portal-preview.png"
-              alt="Placeholder preview of starter"
-              width={300}
-              height={200}
-            />
-            <div className={styles.cardText}>
-              <h2 className={styles.gradientText1}>Portal ➜</h2>
-              <p>
-                Guides, references, and resources that will help you build with
-                thirdweb.
-              </p>
-            </div>
-          </a>
-
-          <a
-            href="https://thirdweb.com/dashboard"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/images/dashboard-preview.png"
-              alt="Placeholder preview of starter"
-              width={300}
-              height={200}
-            />
-            <div className={styles.cardText}>
-              <h2 className={styles.gradientText2}>Dashboard ➜</h2>
-              <p>
-                Deploy, configure, and manage your smart contracts from the
-                dashboard.
-              </p>
-            </div>
-          </a>
-
-          <a
-            href="https://thirdweb.com/templates"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/images/templates-preview.png"
-              alt="Placeholder preview of templates"
-              width={300}
-              height={200}
-            />
-            <div className={styles.cardText}>
-              <h2 className={styles.gradientText3}>Templates ➜</h2>
-              <p>
-                Discover and clone template projects showcasing thirdweb
-                features.
-              </p>
-            </div>
-          </a>
-        </div>
-      </div>
     </main>
   );
 };
